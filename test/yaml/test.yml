@@ -1,0 +1,23 @@
+namespace: 'test'
+
+attrs: id, name, age
+
+query:
+    - select {{ test.attrs }} from test where
+    - age > :age
+
+forTest:
+    - select * from test where
+    - id in (
+    - for:
+          array: ids
+          sql: :id
+          seperator: ','
+    - )
+
+batchInsert:
+    - insert into test(name, age) values
+    - for:
+          array: data
+          sql: (:name, :age)
+          seperator: ','

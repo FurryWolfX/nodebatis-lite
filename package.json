@@ -1,0 +1,25 @@
+{
+  "name": "@wolfx/nodebatis-lite",
+  "version": "1.0.1",
+  "description": "a sql style orm for nodejs",
+  "main": "src/nodebatis-lite.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "keywords": [
+    "nodebatis",
+    "sql",
+    "mybatis"
+  ],
+  "author": "wolfx",
+  "license": "MIT",
+  "dependencies": {
+    "js-yaml": "^3.12.2",
+    "lodash": "^4.17.11",
+    "sqlstring": "^2.3.1"
+  },
+  "devDependencies": {
+    "mysql": "^2.16.0",
+    "prettier": "^1.16.4"
+  }
+}
