@@ -119,7 +119,7 @@ class NodebatisLite {
   async delete(tableName, id, idKey) {
     if (tableName && id) {
       let sqlObj = builder.getDeleteSql(tableName, id, idKey);
-      let key = `_auto_builder_del_${tableName}`;
+      let key = `_auto_builder_delete_${tableName}`;
       if (this.debug) {
         if (this.debugCallback && typeof this.debugCallback === "function") {
           this.debugCallback(key, sqlObj.sql, sqlObj.params || "");
@@ -129,7 +129,32 @@ class NodebatisLite {
       }
       return await this.pool.query(key, sqlObj.sql, sqlObj.params);
     } else {
-      console.error("del need tableName and id");
+      console.error("delete need tableName and id");
+    }
+  }
+
+  /**
+   * 构建简易的查询sql
+   * @param tableName
+   * @param dataArray 需要查询的字段名的数组
+   * @param id
+   * @param idKey
+   * @returns {Promise<*>}
+   */
+  async find(tableName, dataArray, id, idKey) {
+    if (tableName && dataArray && id) {
+      let sqlObj = builder.getFindSql(tableName, dataArray, id, idKey);
+      let key = `_auto_builder_find_${tableName}`;
+      if (this.debug) {
+        if (this.debugCallback && typeof this.debugCallback === "function") {
+          this.debugCallback(key, sqlObj.sql, sqlObj.params || "");
+        } else {
+          console.info(key, sqlObj.sql, sqlObj.params || "");
+        }
+      }
+      return await this.pool.query(key, sqlObj.sql, sqlObj.params);
+    } else {
+      console.error("find need tableName and dataArray and id");
     }
   }
 

@@ -80,6 +80,11 @@ let deleteTest = async id => {
   console.log("deleteTest", ret);
 };
 
+let findTest = async () => {
+  let ret = await nodebatis.find("test", ["*"], 1);
+  console.log("findTest", ret);
+};
+
 // insertTest()
 //   .then(() => queryTest(18))
 //   .then(() => batchInsertTest())
@@ -89,3 +94,5 @@ let deleteTest = async id => {
 // deleteTest(12);
 
 // nodebatis.execute("ALTER TABLE test.test ADD column1 varchar(100) NULL;", []);
+
+findTest();

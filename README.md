@@ -57,6 +57,22 @@ const nodebatis = new NodebatisLite(path.resolve(__dirname, "./yaml"), {
 });
 ```
 
+## 利用 find 快速查询数据
+
+```javascript
+let findTest = async () => {
+  let ret = await nodebatis.find("test", ["*"], 1);
+};
+```
+
+默认是通过 id 查询，当然，你可以指定字段名
+
+```javascript
+let findTest = async () => {
+  let ret = await nodebatis.find("test", ["*"], 1, "yourName");
+};
+```
+
 ## 利用 insert 方法快速插入数据
 
 ```javascript

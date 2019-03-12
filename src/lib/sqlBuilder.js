@@ -69,3 +69,22 @@ exports.getDeleteSql = (tableName, id, idKey = "id") => {
     params: [id]
   };
 };
+
+/**
+ * 通过ID查找
+ * @param tableName
+ * @param dataArray
+ * @param id
+ * @param idKey
+ * @returns {{params: *[], sql: string}}
+ */
+exports.getFindSql = (tableName, dataArray, id, idKey = "id") => {
+  const _tableName = escapeId(tableName);
+  const _idKey = escapeId(idKey);
+  const _data = dataArray.join(",");
+  const sql = `select ${_data} from ${_tableName} where ${_idKey} = ?`;
+  return {
+    sql: sql,
+    params: [id]
+  };
+};
