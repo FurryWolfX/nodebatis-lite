@@ -95,4 +95,4 @@ let findTest = async () => {
 
 // nodebatis.execute("ALTER TABLE test.test ADD column1 varchar(100) NULL;", []);
 
-findTest();
+// findTest();

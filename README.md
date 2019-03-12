@@ -26,6 +26,7 @@ yarn add @wolfx/nodebatis-lite mysql
 
 - Result execute(string sql, Array params) 执行原始 sql
 - Result query(string key, Object data)
+- Result find(string key, Array dataArray, string|int param, string paramKey = "id")
 - Result insert(string tableName, Object data)
 - Result update(string tableName, Object data, string idKey = "id")
 - Result delete(string tableName, string|int id, string idKey)
