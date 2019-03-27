@@ -50,6 +50,7 @@ const nodebatis = new NodebatisLite(path.resolve(__dirname, "./yaml"), {
   database: "test",
   user: "root",
   password: "haosql",
+  camelCase: true, // 是否使用驼峰参数和返回结果
   pool: {
     minSize: 5,
     maxSize: 20,
