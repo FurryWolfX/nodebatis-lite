@@ -2,48 +2,36 @@ const _ = require("lodash");
 
 module.exports.camelCase = function(data) {
   if (_.isArray(data)) {
-    let array = [];
-    for (let item of data) {
-      let parsedItem = {};
-      for (let key in item) {
-        if (item.hasOwnProperty(key)) {
-          parsedItem[_.camelCase(key)] = item[key];
-        }
-      }
-      array.push(parsedItem);
-    }
-    return array;
+    return data.map(item => {
+      const parsedItem = {};
+      Object.keys(item).forEach(key => {
+        parsedItem[_.camelCase(key)] = item[key];
+      });
+      return parsedItem;
+    });
   } else {
-    let parsedData = {};
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        parsedData[_.camelCase(key)] = data[key];
-      }
-    }
+    const parsedData = {};
+    Object.keys(data).forEach(key => {
+      parsedData[_.camelCase(key)] = data[key];
+    });
     return parsedData;
   }
 };
 
 module.exports.snakeCase = function(data) {
   if (_.isArray(data)) {
-    let array = [];
-    for (let item of data) {
-      let parsedItem = {};
-      for (let key in item) {
-        if (item.hasOwnProperty(key)) {
-          parsedItem[_.snakeCase(key)] = item[key];
-        }
-      }
-      array.push(parsedItem);
-    }
-    return array;
+    return data.map(item => {
+      const parsedItem = {};
+      Object.keys(item).forEach(key => {
+        parsedItem[_.snakeCase(key)] = item[key];
+      });
+      return parsedItem;
+    });
   } else {
-    let parsedData = {};
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        parsedData[_.snakeCase(key)] = data[key];
-      }
-    }
+    const parsedData = {};
+    Object.keys(data).forEach(key => {
+      parsedData[_.snakeCase(key)] = data[key];
+    });
     return parsedData;
   }
 };

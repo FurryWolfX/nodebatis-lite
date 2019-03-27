@@ -7,21 +7,18 @@ const { escapeId } = require("sqlstring");
  * @returns {{params: Array, sql: string}}
  */
 exports.getInsertSql = (tableName, data) => {
-  let columns = [],
+  const columns = [],
     params = [],
-    holders = [],
-    sql;
+    holders = [];
   const _tableName = escapeId(tableName);
-  for (let key in data) {
-    if (data.hasOwnProperty(key)) {
-      columns.push(escapeId(key));
-      holders.push("?");
-      params.push(data[key]);
-    }
-  }
+  Object.keys(data).forEach(key => {
+    columns.push(escapeId(key));
+    holders.push("?");
+    params.push(data[key]);
+  });
   const columnsString = columns.join(",");
   const holdersString = holders.join(",");
-  sql = `insert into ${_tableName} (${columnsString}) values (${holdersString})`;
+  const sql = `insert into ${_tableName} (${columnsString}) values (${holdersString})`;
   return { sql, params };
 };
 
@@ -33,23 +30,22 @@ exports.getInsertSql = (tableName, data) => {
  * @returns {{params: Array, sql: string}}
  */
 exports.getUpdateSql = (tableName, data, idKey = "id") => {
-  let sql,
-    params = [],
+  const params = [],
     holders = [];
   let where = "";
   const _tableName = escapeId(tableName);
-  for (let key in data) {
-    if (key !== idKey && data.hasOwnProperty(key)) {
+  Object.keys(data).forEach(key => {
+    if (key !== idKey) {
       holders.push(`${escapeId(key)} = ?`);
       params.push(data[key]);
     }
-  }
+  });
   const holdersString = holders.join(",");
   if (data.hasOwnProperty(idKey)) {
     where = `where ${escapeId(idKey)} = ?`;
     params.push(data[idKey]);
   }
-  sql = `update ${_tableName} set ${holdersString} ${where}`;
+  const sql = `update ${_tableName} set ${holdersString} ${where}`;
   return { sql, params };
 };
 
