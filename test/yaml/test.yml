@@ -1,6 +1,6 @@
 namespace: 'test'
 
-attrs: id, name, age
+attrs: id, name, age, nick_name
 
 query:
     - select {{ test.attrs }} from test where

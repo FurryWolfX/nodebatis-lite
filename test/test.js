@@ -9,6 +9,7 @@ const nodebatis = new NodeBatisLite(path.resolve(__dirname, "./yaml"), {
   database: "test",
   user: "root",
   password: "haosql",
+  camelCase: true,
   pool: {
     minSize: 5,
     maxSize: 20,
@@ -17,7 +18,7 @@ const nodebatis = new NodeBatisLite(path.resolve(__dirname, "./yaml"), {
 });
 
 let insertTest = async () => {
-  let ret = await nodebatis.insert("test", { age: 29, name: "peter" });
+  let ret = await nodebatis.insert("test", { age: 29, name: "peter", nickName: "pp" });
   console.log("insertTest:", ret);
 };
 
@@ -85,14 +86,14 @@ let findTest = async () => {
   console.log("findTest", ret);
 };
 
-// insertTest()
-//   .then(() => queryTest(18))
-//   .then(() => batchInsertTest())
-//   .then(() => forTest())
-//   .then(() => updateTest());
-//
+insertTest()
+  .then(() => queryTest(18))
+  .then(() => batchInsertTest())
+  .then(() => forTest())
+  .then(() => updateTest());
+
 // deleteTest(12);
 
 // nodebatis.execute("ALTER TABLE test.test ADD column1 varchar(100) NULL;", []);
 
-findTest();
+// findTest();

@@ -10,11 +10,11 @@ class Rule {
   }
 
   getAllSql() {
-    for (let key in this.doc) {
-      if (key !== "namespace" && this.doc.hasOwnProperty(key)) {
+    Object.keys(this.doc).forEach(key => {
+      if (key !== "namespace") {
         this.getSql(key, this.doc[key]);
       }
-    }
+    });
   }
 
   /**

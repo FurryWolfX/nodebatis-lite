@@ -1,10 +1,10 @@
 {
   "name": "@wolfx/nodebatis-lite",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "a sql style orm for nodejs",
   "main": "src/nodebatis-lite.js",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8.11.0"
   },
   "keywords": [
     "nodebatis",

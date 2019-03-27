@@ -2,8 +2,7 @@ const _ = require("lodash");
 const Pool = require("./lib/pool");
 const SqlContainer = require("./lib/sqlContainer");
 const builder = require("./lib/sqlBuilder");
-const snakeCase = require("./utils/caseHandle").snakeCase;
-const camelCase = require("./utils/caseHandle").camelCase;
+const { snakeCase, camelCase } = require("./utils/caseHandle");
 
 class NodebatisLite {
   constructor(dir, config) {
@@ -138,12 +137,12 @@ class NodebatisLite {
    * @param tableName
    * @param dataArray 需要查询的字段名的数组
    * @param id
-   * @param idKey
+   * @param paramKey
    * @returns {Promise<*>}
    */
-  async find(tableName, dataArray, id, idKey) {
+  async find(tableName, dataArray, id, paramKey) {
     if (tableName && dataArray && id) {
-      let sqlObj = builder.getFindSql(tableName, dataArray, id, idKey);
+      let sqlObj = builder.getFindSql(tableName, dataArray, id, paramKey);
       let key = `_auto_builder_find_${tableName}`;
       if (this.debug) {
         if (this.debugCallback && typeof this.debugCallback === "function") {
