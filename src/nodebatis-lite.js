@@ -2,8 +2,7 @@ const _ = require("lodash");
 const Pool = require("./lib/pool");
 const SqlContainer = require("./lib/sqlContainer");
 const builder = require("./lib/sqlBuilder");
-const snakeCase = require("./utils/caseHandle").snakeCase;
-const camelCase = require("./utils/caseHandle").camelCase;
+const { snakeCase, camelCase } = require("./utils/caseHandle");
 
 class NodebatisLite {
   constructor(dir, config) {
