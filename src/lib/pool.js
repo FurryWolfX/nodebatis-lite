@@ -87,8 +87,8 @@ class Pool {
   /**
    * 暴露原始pool给外部
    */
-  getPool() {
-    return this._pool;
+  getNativePool() {
+    return this._pool.pool;
   }
 }
 

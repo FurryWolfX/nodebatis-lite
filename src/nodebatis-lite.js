@@ -161,7 +161,7 @@ class NodebatisLite {
    * 暴露原始pool给外部
    */
   getPool() {
-    return this.pool.getPool();
+    return this.pool.getNativePool();
   }
 }
 
