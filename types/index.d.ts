@@ -33,7 +33,7 @@ export default class NodeBatisLite {
 
   delete(tableName: string, id: string | number, idKey?: string): IPromise;
 
-  find(tableName: string, dataArray: Array<string>, id: string, paramKey: string): IPromise;
+  find(tableName: string, dataArray: Array<string>, id: string, paramKey?: string): IPromise;
 
   getPool(): Pool
 }
