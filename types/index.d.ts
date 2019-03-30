@@ -1,13 +1,13 @@
 import { IPromise } from "promise";
 import { Pool } from "mysql";
 
-interface PoolConfig {
+export interface PoolConfig {
   minSize: number;
   maxSize: number;
   connectionLimit: number;
 }
 
-interface NodeBatisLiteConfig {
+export interface NodeBatisLiteConfig {
   debug?: boolean;
   debugCallback?: Function;
   dialect: string;
