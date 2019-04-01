@@ -1,4 +1,4 @@
-import { IPromise } from "promise";
+import { IPromise } from "./promise";
 import { Pool } from "mysql";
 
 export interface PoolConfig {
@@ -31,12 +31,19 @@ export default class NodeBatisLite {
 
   update(tableName: string, data: Object, idKey?: string): IPromise;
 
-  delete(tableName: string, id: string | number, idKey?: string): IPromise;
+  del(tableName: string, id: string | number, idKey?: string): IPromise;
 
   find(tableName: string, dataArray: Array<string>, id: string, paramKey?: string): IPromise;
 
   getPool(): Pool
 }
 
+export function execute(sql: string, params: Array<any>): IPromise;
+export function query(key: string, data: Object): IPromise;
+export function insert(tableName: string, data: Object): IPromise;
+export function update(tableName: string, data: Object, idKey?: string): IPromise;
+export function del(tableName: string, id: string | number, idKey?: string): IPromise;
+export function find(tableName: string, dataArray: Array<string>, id: string, paramKey?: string): IPromise;
+export function getPool(): Pool;
 
 

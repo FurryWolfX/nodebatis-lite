@@ -115,7 +115,7 @@ class NodebatisLite {
    * @param idKey 主键的名字
    * @returns {Promise<*>}
    */
-  async delete(tableName, id, idKey = "id") {
+  async del(tableName, id, idKey = "id") {
     if (tableName && id) {
       let sqlObj = builder.getDeleteSql(tableName, id, idKey);
       let key = `_auto_builder_delete_${tableName}`;
