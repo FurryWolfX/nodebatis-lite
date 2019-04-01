@@ -47,7 +47,7 @@ class NodebatisLite {
         console.info(key, sqlObj.sql, sqlObj.params || "");
       }
     }
-    let result = await this.pool.query(key, sqlObj.sql, sqlObj.params);
+    let result = await this.pool.query(sqlObj.sql, sqlObj.params);
     if (this.config.camelCase === true) {
       result = camelCase(result);
     }
@@ -74,7 +74,7 @@ class NodebatisLite {
           console.info(key, sqlObj.sql, sqlObj.params || "");
         }
       }
-      return await this.pool.query(key, sqlObj.sql, sqlObj.params);
+      return await this.pool.query(sqlObj.sql, sqlObj.params);
     } else {
       console.error("insert need tableName and data");
     }
@@ -102,7 +102,7 @@ class NodebatisLite {
           console.info(key, sqlObj.sql, sqlObj.params || "");
         }
       }
-      return await this.pool.query(key, sqlObj.sql, sqlObj.params);
+      return await this.pool.query(sqlObj.sql, sqlObj.params);
     } else {
       console.error("update need tableName and data");
     }
@@ -126,7 +126,7 @@ class NodebatisLite {
           console.info(key, sqlObj.sql, sqlObj.params || "");
         }
       }
-      return await this.pool.query(key, sqlObj.sql, sqlObj.params);
+      return await this.pool.query(sqlObj.sql, sqlObj.params);
     } else {
       console.error("delete need tableName and id");
     }
@@ -151,7 +151,7 @@ class NodebatisLite {
           console.info(key, sqlObj.sql, sqlObj.params || "");
         }
       }
-      return await this.pool.query(key, sqlObj.sql, sqlObj.params);
+      return await this.pool.query(sqlObj.sql, sqlObj.params);
     } else {
       console.error("find need tableName and dataArray and id");
     }

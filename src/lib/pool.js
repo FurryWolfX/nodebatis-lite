@@ -30,7 +30,7 @@ class Pool {
     return await this._pool.getConnection();
   }
 
-  async query(key, sql, params, transactionConnection) {
+  async query(sql, params, transactionConnection) {
     try {
       params = params || [];
       let connection = transactionConnection || (await this.getConnection());
