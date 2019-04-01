@@ -29,7 +29,7 @@ yarn add @wolfx/nodebatis-lite mysql
 - Result find(string key, Array dataArray, string|int param, string paramKey = "id")
 - Result insert(string tableName, Object data)
 - Result update(string tableName, Object data, string idKey = "id")
-- Result delete(string tableName, string|int id, string idKey)
+- Result del(string tableName, string|int id, string idKey)
 - Pool getPool() 暴露原始 pool 给外部
 
 # 示例代码
