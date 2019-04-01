@@ -107,7 +107,7 @@ let updateTest = async () => {
 
 ```javascript
 let deleteTest = async id => {
-  let ret = await nodebatis.delete("test", id);
+  let ret = await nodebatis.del("test", id);
 };
 ```
 
@@ -115,7 +115,7 @@ let deleteTest = async id => {
 
 ```javascript
 let deleteTest = async id => {
-  let ret = await nodebatis.delete("test", id, "yourKey");
+  let ret = await nodebatis.del("test", id, "yourKey");
 };
 ```
 

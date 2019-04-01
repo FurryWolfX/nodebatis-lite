@@ -1,8 +1,9 @@
 {
   "name": "@wolfx/nodebatis-lite",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "a sql style orm for nodejs",
   "main": "src/nodebatis-lite.js",
+  "typings": "types/index.d.ts",
   "engines": {
     "node": ">=8.11.0"
   },
@@ -14,6 +15,7 @@
   "author": "wolfx",
   "license": "MIT",
   "dependencies": {
+    "@types/mysql": "^2.15.5",
     "js-yaml": "^3.12.2",
     "lodash": "^4.17.11",
     "sqlstring": "^2.3.1"

@@ -77,7 +77,7 @@ let updateTest = async () => {
 };
 
 let deleteTest = async id => {
-  let ret = await nodebatis.delete("test", id);
+  let ret = await nodebatis.del("test", id);
   console.log("deleteTest", ret);
 };
 
