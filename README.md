@@ -30,6 +30,7 @@ yarn add @wolfx/nodebatis-lite mysql
 - Result insert(string tableName, Object data)
 - Result update(string tableName, Object data, string idKey = "id")
 - Result del(string tableName, string|int id, string idKey)
+- Result del(string tableName, Array<string|int> idArray, string idKey) 批量删除
 - Pool getPool() 暴露原始 pool 给外部
 
 # 示例代码
@@ -111,11 +112,19 @@ let deleteTest = async id => {
 };
 ```
 
-如果你的主键不叫 id，比如叫 yourKey
+如果你的主键不叫 id，比如叫 your_key
 
 ```javascript
 let deleteTest = async id => {
-  let ret = await nodebatis.del("test", id, "yourKey");
+  let ret = await nodebatis.del("test", id, "your_key");
+};
+```
+
+1.2.0 开始可以传数组进行批量删除
+
+```javascript
+let deleteTest = async idArray => {
+  let ret = await nodebatis.del("test", idArray);
 };
 ```
 

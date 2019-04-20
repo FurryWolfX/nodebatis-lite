@@ -1,4 +1,5 @@
 const { escapeId } = require("sqlstring");
+const _ = require("lodash");
 
 /**
  * 处理插入语句和参数
@@ -52,18 +53,30 @@ exports.getUpdateSql = (tableName, data, idKey = "id") => {
 /**
  * 处理删除语句
  * @param tableName
- * @param id
+ * @param id 可以是数组，如果是数组就批量删除
  * @param idKey
- * @returns {{params: *[], sql: string}}
+ * @returns {{params: Object, sql: string}}
  */
 exports.getDeleteSql = (tableName, id, idKey = "id") => {
   const _tableName = escapeId(tableName);
   const _idKey = escapeId(idKey);
-  const sql = `delete from ${_tableName} where ${_idKey} = ?`;
-  return {
-    sql: sql,
-    params: [id]
-  };
+  if (_.isArray(id)) {
+    const idArray = id;
+    let sql = `delete from ${_tableName} where `;
+    const conditions = [];
+    idArray.forEach(() => conditions.push(`${_idKey} = ?`));
+    sql += conditions.join(" or ");
+    return {
+      sql: sql,
+      params: id,
+    };
+  } else {
+    const sql = `delete from ${_tableName} where ${_idKey} = ?`;
+    return {
+      sql: sql,
+      params: [id],
+    };
+  }
 };
 
 /**
@@ -81,6 +94,6 @@ exports.getFindSql = (tableName, dataArray, id, paramKey = "id") => {
   const sql = `select ${_data} from ${_tableName} where ${_paramKey} = ?`;
   return {
     sql: sql,
-    params: [id]
+    params: [id],
   };
 };
