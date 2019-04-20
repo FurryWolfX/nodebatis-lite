@@ -86,13 +86,14 @@ let findTest = async () => {
   console.log("findTest", ret);
 };
 
-insertTest()
-  .then(() => queryTest(18))
-  .then(() => batchInsertTest())
-  .then(() => forTest())
-  .then(() => updateTest());
+// insertTest()
+//   .then(() => queryTest(18))
+//   .then(() => batchInsertTest())
+//   .then(() => forTest())
+//   .then(() => updateTest());
 
 // deleteTest(12);
+// deleteTest([4, "6"]);
 
 // nodebatis.execute("ALTER TABLE test.test ADD column1 varchar(100) NULL;", []);
 
