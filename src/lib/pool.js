@@ -14,10 +14,10 @@ class Pool {
         pool: {
           minSize: 5,
           maxSize: 20,
-          acquireIncrement: 5
-        }
+          acquireIncrement: 5,
+        },
       },
-      config
+      config,
     );
     // 根据方言获取相应的_pool, API以mysql为基准
     if (this.config.dialect === "mysql") {

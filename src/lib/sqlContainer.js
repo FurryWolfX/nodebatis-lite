@@ -45,7 +45,7 @@ class SqlContainer {
         //fill {{key}}
         for (let i = 0; i < sql.length; i++) {
           let tempSql = new Map();
-          if (typeof sql[i] == "string") {
+          if (typeof sql[i] === "string") {
             sql[i] = sql[i].replace(childKeyReg, (match, key) => {
               // let index = `___${tempSql.size}`;
               tempSql.set(key, this.getRaw(key));
@@ -79,7 +79,7 @@ class SqlContainer {
     let rawSql = [],
       params = [];
     for (let sql of sqlArray) {
-      if (typeof sql == "string") {
+      if (typeof sql === "string") {
         sqls.push(this._fillParams(sql, data));
       } else {
         // 只判断 test ，验证通过后拼接 sql，但是参数填充统一在后面处理
@@ -108,7 +108,7 @@ class SqlContainer {
     });
     return {
       sql: result,
-      params
+      params,
     };
   }
 
@@ -118,7 +118,7 @@ class SqlContainer {
     data = data || {};
     const context = new vm.createContext(data);
     if (node.name.toLowerCase() === "if") {
-      if (node.test && typeof node.test == "string") {
+      if (node.test && typeof node.test === "string") {
         statements = node.test.replace(keyReg, (match, key) => {
           data[key] = data[key] || null;
           return key;
@@ -150,7 +150,7 @@ class SqlContainer {
         }
         sql = {
           sql: rawSql.join(node.seperator),
-          params
+          params,
         };
       }
     }
@@ -168,7 +168,7 @@ class SqlContainer {
     });
     return {
       sql: _sql,
-      params: params.length > 0 ? params : null
+      params: params.length > 0 ? params : null,
     };
   }
 }
