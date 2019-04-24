@@ -13,7 +13,7 @@ class Pool {
       password: config.password,
       database: config.database,
       charset: config.charset,
-      connectionLimit: config.pool.connectionLimit
+      connectionLimit: config.pool.connectionLimit,
     });
   }
 

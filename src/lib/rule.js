@@ -25,11 +25,11 @@ class Rule {
   getSql(name, sql) {
     let sqls = [],
       cond = {};
-    if (typeof sql == "string") {
+    if (typeof sql === "string") {
       sqls.push(sql.replace(/\n/g, "").trim());
     } else {
       for (let s of sql) {
-        if (typeof s == "string") {
+        if (typeof s === "string") {
           sqls.push(s.replace(/\n/g, "").trim());
         } else {
           for (let key in s) {
