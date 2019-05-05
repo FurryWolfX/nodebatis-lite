@@ -22,7 +22,7 @@ class NodebatisLite {
   /**
    * 执行
    */
-  async execute(sql, params) {
+  async execute(sql, params = []) {
     const key = "execute sql ";
     if (this.debug) {
       if (this.debugCallback && typeof this.debugCallback === "function") {
@@ -31,7 +31,7 @@ class NodebatisLite {
         console.info(key, sql, params || "");
       }
     }
-    let result = await this.pool.query(key, sql, params);
+    let result = await this.pool.query(sql, params);
     if (this.config.camelCase === true) {
       result = camelCase(result);
     }
