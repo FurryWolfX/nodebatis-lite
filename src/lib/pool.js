@@ -30,26 +30,22 @@ class Pool {
     return await this._pool.getConnection();
   }
 
-  async query(sql, params, transactionConnection) {
-    try {
-      params = params || [];
-      let connection = transactionConnection || (await this.getConnection());
-      return new Promise((resolve, reject) => {
-        connection._query(sql, params, (err, results) => {
-          if (!err) {
-            resolve(results);
-          } else {
-            reject(err);
-          }
-          if (!transactionConnection) {
-            // 如果不是事务，执行完毕就关闭连接
-            connection.release();
-          }
-        });
+  async query(sql, params = [], transactionConnection) {
+    // TODO 事务 transactionConnection 预留
+    let connection = transactionConnection || (await this.getConnection());
+    return new Promise(resolve => {
+      connection._query(sql, params, (err, results) => {
+        if (!err) {
+          resolve(results);
+        } else {
+          throw err;
+        }
+        if (!transactionConnection) {
+          // 如果不是事务，执行完毕就关闭连接
+          connection.release();
+        }
       });
-    } catch (e) {
-      throw new Error(e);
-    }
+    });
   }
 
   get dialect() {

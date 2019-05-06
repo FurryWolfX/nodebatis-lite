@@ -22,14 +22,14 @@ class Pool {
    * @returns {Promise<any>}
    */
   getConnection() {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       this.pool.getConnection((err, connection) => {
         if (!err) {
           // 为了对外暴露一致的接口
           connection._query = connection.query;
           resolve(connection);
         } else {
-          reject(err);
+          throw err;
         }
       });
     });
