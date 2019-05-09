@@ -23,7 +23,7 @@ export interface NodeBatisLiteConfig {
 export default class NodeBatisLite {
   constructor(dir: string, config: NodeBatisLiteConfig);
 
-  execute(sql: string, params: Array<any>): IPromise;
+  execute(sql: string, params?: Array<string|number>): IPromise;
 
   query(key: string, data: Object): IPromise;
 
@@ -38,7 +38,7 @@ export default class NodeBatisLite {
   getPool(): Pool;
 }
 
-export function execute(sql: string, params: Array<any>): IPromise;
+export function execute(sql: string, params?: Array<string|number>): IPromise;
 export function query(key: string, data: Object): IPromise;
 export function insert(tableName: string, data: Object): IPromise;
 export function update(tableName: string, data: Object, idKey?: string): IPromise;

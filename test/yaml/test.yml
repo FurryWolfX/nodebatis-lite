@@ -6,6 +6,11 @@ query:
     - select {{ test.attrs }} from test where
     - age > :age
 
+ifTest:
+    - if:
+        test: :param !== null
+        sql: select * from test
+
 forTest:
     - select * from test where
     - id in (
