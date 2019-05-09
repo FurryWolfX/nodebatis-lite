@@ -86,6 +86,12 @@ let findTest = async () => {
   console.log("findTest", ret);
 };
 
+let ifTest = async () => {
+  let ret = await nodebatis.query("test.ifTest", {param: 0});
+  console.log("ifTest", ret);
+};
+
+ifTest();
 // insertTest()
 //   .then(() => queryTest(18))
 //   .then(() => batchInsertTest())
