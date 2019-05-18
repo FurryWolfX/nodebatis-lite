@@ -91,12 +91,12 @@ let ifTest = async () => {
   console.log("ifTest", ret);
 };
 
-ifTest();
-// insertTest()
-//   .then(() => queryTest(18))
-//   .then(() => batchInsertTest())
-//   .then(() => forTest())
-//   .then(() => updateTest());
+// ifTest();
+insertTest()
+  .then(() => queryTest(18))
+  .then(() => batchInsertTest())
+  .then(() => forTest())
+  .then(() => updateTest());
 
 // deleteTest(12);
 // deleteTest([4, "6"]);

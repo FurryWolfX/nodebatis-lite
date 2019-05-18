@@ -4,7 +4,7 @@ const vm = require("vm");
 const fs = require("fs");
 const _ = require("lodash");
 
-const keyReg = /:([\w._]+)/g;
+const keyReg = /[\$|:]([\w._]+)/g;
 const ddlKeyReg = /::([\w._]+)/g;
 const childKeyReg = /{{\s*([\w._]+)\s*}}/g;
 

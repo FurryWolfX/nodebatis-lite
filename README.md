@@ -55,8 +55,8 @@ const nodebatis = new NodebatisLite(path.resolve(__dirname, "./yaml"), {
   pool: {
     minSize: 5,
     maxSize: 20,
-    connectionLimit: 5
-  }
+    connectionLimit: 5,
+  },
 });
 ```
 
@@ -96,11 +96,7 @@ let updateTest = async () => {
 
 ```javascript
 let updateTest = async () => {
-  let ret = await nodebatis.update(
-    "test",
-    { id: 1, age: 21, name: "bezos" },
-    "yourKey"
-  );
+  let ret = await nodebatis.update("test", { id: 1, age: 21, name: "bezos" }, "yourKey");
 };
 ```
 
@@ -139,9 +135,9 @@ SQL yaml 文档的约定的规则很简单。
 1. 开头需要写 `namespace: xxx`, `xxx` 为自己定义的命名空间。
 2. 定义 SQL 语句 `key: sql` , `namespace.key` 就是定义的 SQL 语句的唯一索引。
 3. SQL 语句中的参数。
-    * `:paramName`, `paramName` 为执行 SQL 语句时传递的参数名。
-    * `::ddl`, `ddl` 为 DDL 语句，不会对参数进行过滤。
-    * `{{namespace.key}}`, SQL 语句继承，会获取到 `namespace.key` 的 SQL 语句填充到此处。
+   - `:paramName`, `paramName` 为执行 SQL 语句时传递的参数名。
+   - `::ddl`, `ddl` 为 DDL 语句，不会对参数进行过滤。
+   - `{{namespace.key}}`, SQL 语句继承，会获取到 `namespace.key` 的 SQL 语句填充到此处。
 4. 条件判断。
 
 ```
@@ -149,6 +145,7 @@ if:
     test: expression
     sql: statements
 ```
+
 当 expression 为 true 是，对应的 sql 会添加到 sql 语句中。 expression 就是一个 JS 语句, 可以通过 `:paramName` 传递参数。
 
 5. for 循环
@@ -159,9 +156,10 @@ for:
     sql: statements
     seperator: ','
 ```
-* `array`, 要遍历的数组，数组内的数据必须是对象。
-* `sql`, 每次遍历要填充的 sql，使用 :key 的形式引用 array 中的对象的数据。
-* `seperator`, 每次遍历填充的 sql 之间的分隔符。
+
+- `array`, 要遍历的数组，数组内的数据必须是对象。
+- `sql`, 每次遍历要填充的 sql，使用 :key 的形式引用 array 中的对象的数据。
+- `seperator`, 每次遍历填充的 sql 之间的分隔符。
 
 ### 示例
 
@@ -173,7 +171,7 @@ attrs: id, name, age
 query:
   - select {{ test.attrs }} from test where
   - age > :age
-    
+
 expressionDemo:
   - select * from demo where
   - if:
@@ -186,6 +184,33 @@ forTest:
   - for:
       array: ids
       sql: :id
+      seperator: ","
+  - )
+```
+
+**1.3.0 开始，支持用 `$` 符号定义变量，多了一种选择**
+
+```yaml
+namespace: "test"
+
+attrs: id, name, age
+
+query:
+  - select {{ test.attrs }} from test where
+  - age > $age
+
+expressionDemo:
+  - select * from demo where
+  - if:
+      test: :paramName == 'nodebatis' && $age > 18
+      sql: and sex = 'man'
+
+forTest:
+  - select * from test where
+  - id in (
+  - for:
+      array: ids
+      sql: $id
       seperator: ","
   - )
 ```
@@ -211,14 +236,14 @@ let forTest = async () => {
   try {
     let ids = [
       {
-        id: 1
+        id: 1,
       },
       {
-        id: 2
+        id: 2,
       },
       {
-        id: 3
-      }
+        id: 3,
+      },
     ];
     let ret = await nodebatis.query("test.forTest", { ids });
   } catch (e) {
@@ -246,17 +271,17 @@ let batchInsertTest = async () => {
     data: [
       {
         name: "batch-" + parseInt(Math.random() * 10),
-        age: 18
+        age: 18,
       },
       {
         name: "batch-" + parseInt(Math.random() * 10),
-        age: 19
+        age: 19,
       },
       {
         name: "batch-" + parseInt(Math.random() * 10),
-        age: 17
-      }
-    ]
+        age: 17,
+      },
+    ],
   });
 };
 ```
