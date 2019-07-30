@@ -1,6 +1,6 @@
 {
   "name": "@wolfx/nodebatis-lite",
-  "version": "1.3.0",
+  "version": "1.4.0-alpha",
   "description": "a sql style orm for nodejs",
   "main": "src/nodebatis-lite.js",
   "typings": "types/index.d.ts",
@@ -20,8 +20,11 @@
     "lodash": "^4.17.11",
     "sqlstring": "^2.3.1"
   },
+  "peerDependencies": {
+    "mysql": "^2.16.0"
+  },
   "devDependencies": {
-    "mysql": "^2.16.0",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "mysql": "^2.16.0"
   }
 }

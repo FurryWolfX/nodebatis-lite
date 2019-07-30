@@ -1,4 +1,3 @@
-import { IPromise } from "./promise";
 import { Pool } from "mysql";
 
 export interface PoolConfig {
@@ -20,28 +19,43 @@ export interface NodeBatisLiteConfig {
   pool?: PoolConfig;
 }
 
+// 针对 ES6 和 TS
 export default class NodeBatisLite {
   constructor(dir: string, config: NodeBatisLiteConfig);
-
-  execute(sql: string, params?: Array<string|number>): IPromise;
-
-  query(key: string, data: Object): IPromise;
-
-  insert(tableName: string, data: Object): IPromise;
-
-  update(tableName: string, data: Object, idKey?: string): IPromise;
-
-  del(tableName: string, id: string | number | Array<string | number>, idKey?: string): IPromise;
-
-  find(tableName: string, dataArray: Array<string>, id: string, paramKey?: string): IPromise;
-
+  execute(sql: string, params?: Array<string | number>): Promise<any>;
+  query(key: string, data: Object): Promise<any>;
+  insert(tableName: string, data: Object): Promise<any>;
+  update(tableName: string, data: Object, idKey?: string): Promise<any>;
+  del(tableName: string, id: string | number | Array<string | number>, idKey?: string): Promise<any>;
+  find(tableName: string, dataArray: Array<string>, id: string, paramKey?: string): Promise<any>;
+  getTransaction(): Promise<{
+    execute(sql: string, params?: Array<string | number>): Promise<any>;
+    query(key: string, data: Object): Promise<any>;
+    insert(tableName: string, data: Object): Promise<any>;
+    update(tableName: string, data: Object, idKey?: string): Promise<any>;
+    del(tableName: string, id: string | number | Array<string | number>, idKey?: string): Promise<any>;
+    find(tableName: string, dataArray: Array<string>, id: string, paramKey?: string): Promise<any>;
+    commit(): Promise<void>;
+    rollback(): Promise<void>;
+  }>;
   getPool(): Pool;
 }
 
-export function execute(sql: string, params?: Array<string|number>): IPromise;
-export function query(key: string, data: Object): IPromise;
-export function insert(tableName: string, data: Object): IPromise;
-export function update(tableName: string, data: Object, idKey?: string): IPromise;
-export function del(tableName: string, id: string | number | Array<string | number>, idKey?: string): IPromise;
-export function find(tableName: string, dataArray: Array<string>, id: string, paramKey?: string): IPromise;
+// 针对 CMD
+export function execute(sql: string, params?: Array<string | number>): Promise<any>;
+export function query(key: string, data: Object): Promise<any>;
+export function insert(tableName: string, data: Object): Promise<any>;
+export function update(tableName: string, data: Object, idKey?: string): Promise<any>;
+export function del(tableName: string, id: string | number | Array<string | number>, idKey?: string): Promise<any>;
+export function find(tableName: string, dataArray: Array<string>, id: string, paramKey?: string): Promise<any>;
+export function getTransaction(): Promise<{
+  execute(sql: string, params?: Array<string | number>): Promise<any>;
+  query(key: string, data: Object): Promise<any>;
+  insert(tableName: string, data: Object): Promise<any>;
+  update(tableName: string, data: Object, idKey?: string): Promise<any>;
+  del(tableName: string, id: string | number | Array<string | number>, idKey?: string): Promise<any>;
+  find(tableName: string, dataArray: Array<string>, id: string, paramKey?: string): Promise<any>;
+  commit(): Promise<void>;
+  rollback(): Promise<void>;
+}>;
 export function getPool(): Pool;

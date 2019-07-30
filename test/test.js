@@ -4,17 +4,17 @@ const path = require("path");
 const nodebatis = new NodeBatisLite(path.resolve(__dirname, "./yaml"), {
   debug: true,
   dialect: "mysql",
-  host: "127.0.0.1",
+  host: "192.168.1.22",
   port: 3306,
   database: "test",
   user: "root",
-  password: "haosql",
+  password: "junlian",
   camelCase: true,
   pool: {
     minSize: 5,
     maxSize: 20,
-    acquireIncrement: 5
-  }
+    acquireIncrement: 5,
+  },
 });
 
 let insertTest = async () => {
@@ -36,17 +36,17 @@ let batchInsertTest = async () => {
     data: [
       {
         name: "batch-" + parseInt(Math.random() * 10),
-        age: 18
+        age: 18,
       },
       {
         name: "batch-" + parseInt(Math.random() * 10),
-        age: 19
+        age: 19,
       },
       {
         name: "batch-" + parseInt(Math.random() * 10),
-        age: 17
-      }
-    ]
+        age: 17,
+      },
+    ],
   });
   console.log("bathInsertTest:", ret);
 };
@@ -55,14 +55,14 @@ let forTest = async () => {
   try {
     let ids = [
       {
-        id: 1
+        id: 1,
       },
       {
-        id: 2
+        id: 2,
       },
       {
-        id: 3
-      }
+        id: 3,
+      },
     ];
     let ret = await nodebatis.query("test.forTest", { ids });
     console.log("forTest:", JSON.stringify(ret));
@@ -87,19 +87,21 @@ let findTest = async () => {
 };
 
 let ifTest = async () => {
-  let ret = await nodebatis.query("test.ifTest", {param: 0});
+  let ret = await nodebatis.query("test.ifTest", { param: 0 });
   console.log("ifTest", ret);
 };
 
 // ifTest();
-insertTest()
-  .then(() => queryTest(18))
-  .then(() => batchInsertTest())
-  .then(() => forTest())
-  .then(() => updateTest());
+// insertTest()
+//   .then(() => queryTest(18))
+//   .then(() => batchInsertTest())
+//   .then(() => forTest())
+//   .then(() => updateTest());
 
-// deleteTest(12);
-// deleteTest([4, "6"]);
+// 通过id删除
+// deleteTest(1006);
+// 删除多个id的数据
+// deleteTest([1007, "1008"]);
 
 // nodebatis.execute("ALTER TABLE test.test ADD column1 varchar(100) NULL;", []);
 

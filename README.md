@@ -202,7 +202,7 @@ query:
 expressionDemo:
   - select * from demo where
   - if:
-      test: :paramName == 'nodebatis' && $age > 18
+      test: $paramName == 'nodebatis' && $age > 18
       sql: and sex = 'man'
 
 forTest:

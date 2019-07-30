@@ -1,3 +1,6 @@
+/**
+ * 中间池
+ */
 class Pool {
   constructor(config) {
     // 以mysql的配置为基准
@@ -26,26 +29,70 @@ class Pool {
     }
   }
 
+  /**
+   * 获取连接
+   * @returns {Promise<any>}
+   */
   async getConnection() {
     return await this._pool.getConnection();
   }
 
+  /**
+   * 释放连接
+   * @param connection
+   */
+  releaseConnection(connection) {
+    connection.release();
+  }
+
+  /**
+   * 查询
+   * @param sql
+   * @param params
+   * @param transactionConnection
+   * @returns {Promise<any>}
+   */
   async query(sql, params = [], transactionConnection) {
-    // TODO 事务 transactionConnection 预留
     let connection = transactionConnection || (await this.getConnection());
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       connection._query(sql, params, (err, results) => {
         if (!err) {
           resolve(results);
         } else {
-          throw err;
+          reject(err);
         }
         if (!transactionConnection) {
           // 如果不是事务，执行完毕就关闭连接
-          connection.release();
+          this.releaseConnection(connection);
         }
       });
     });
+  }
+
+  /**
+   * 开始事务
+   * @returns {Promise<any>}
+   */
+  async beginTransaction() {
+    return await this._pool.getTransactionConnection();
+  }
+
+  /**
+   * 提交事务
+   * @param connection
+   * @returns {Promise<any>}
+   */
+  async commit(connection) {
+    return await this._pool.commit(connection);
+  }
+
+  /**
+   * 事务回滚
+   * @param connection
+   * @returns {Promise<void>}
+   */
+  async rollback(connection) {
+    await this._pool.rollback(connection);
   }
 
   get dialect() {
@@ -81,7 +128,7 @@ class Pool {
   }
 
   /**
-   * 暴露原始pool给外部
+   * 暴露原始池给外部
    */
   getNativePool() {
     return this._pool.pool;

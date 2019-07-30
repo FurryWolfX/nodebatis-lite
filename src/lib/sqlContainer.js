@@ -1,10 +1,11 @@
 const Rule = require("./rule");
+const replaceAndFix = require("./replaceAndFix");
 const path = require("path");
 const vm = require("vm");
 const fs = require("fs");
 const _ = require("lodash");
 
-const keyReg = /[\$|:]([\w._]+)/g;
+const keyReg = /[$|:]([\w._]+)/g;
 const ddlKeyReg = /::([\w._]+)/g;
 const childKeyReg = /{{\s*([\w._]+)\s*}}/g;
 
@@ -31,8 +32,7 @@ class SqlContainer {
     let keys = key.split("."),
       sql = null;
     if (keys.length < 2) {
-      console.error("wrong key, the right key is xxx.xxx");
-      return;
+      throw new Error("wrong key, the right key is xxx.xxx");
     }
     let namespace = keys[0];
     let sqlKey = keys.slice(1).join("");
@@ -40,7 +40,7 @@ class SqlContainer {
     if (sqlMap) {
       sql = sqlMap.get(sqlKey);
       if (!sql) {
-        console.error("The sql:", key, "not exists!");
+        throw new Error("The sql: " + key + " not exists!");
       } else {
         //fill {{key}}
         for (let i = 0; i < sql.length; i++) {
@@ -66,7 +66,7 @@ class SqlContainer {
         }
       }
     } else {
-      console.error("The namespace:", namespace, "not exists!");
+      throw new Error("The namespace: " + namespace + " not exists!");
     }
     // 格式化 sql 数组
     return _.flattenDeep(sql);
@@ -97,15 +97,7 @@ class SqlContainer {
       }
     }
     result = rawSql.join(" ");
-    const lastWhereReg = /\s+where\s*$/i;
-    const whereAndReg = /\s+where\s+and\s+/gi;
-    const whereOtherReg = /\s+where\s+(union\s+|order\s+|group\s+|limit\s+)/gi;
-    const searchReg = /\s+where\s+/i;
-    result = result.replace(lastWhereReg, "");
-    result = result.replace(whereAndReg, " where ");
-    result = result.replace(whereOtherReg, match => {
-      return match.replace(searchReg, " ");
-    });
+    result = replaceAndFix(result);
     return {
       sql: result,
       params,
