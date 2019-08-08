@@ -1,6 +1,6 @@
 {
   "name": "@wolfx/nodebatis-lite",
-  "version": "1.4.0-alpha",
+  "version": "1.4.0",
   "description": "a sql style orm for nodejs",
   "main": "src/nodebatis-lite.js",
   "typings": "types/index.d.ts",

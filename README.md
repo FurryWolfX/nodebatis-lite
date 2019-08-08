@@ -2,7 +2,7 @@
 
 简化和重构自 nodebatis
 
-做了再三的考虑，为了以后支持多方言，nodebatis-lite 不包含 mysql 驱动，需要用户自己安装。
+做了再三的考虑，为了以后支持多数据库，nodebatis-lite 不包含 mysql 驱动，需要用户自己安装。
 
 API 与 nodebatis 不完全兼容！（重要的话说三遍）
 
@@ -22,16 +22,17 @@ npm install @wolfx/nodebatis-lite mysql
 yarn add @wolfx/nodebatis-lite mysql
 ```
 
-# API
+# API(以 TypeScript 描述)
 
-- Result execute(string sql, Array params) 执行原始 sql
-- Result query(string key, Object data)
-- Result find(string key, Array dataArray, string|int param, string paramKey = "id")
-- Result insert(string tableName, Object data)
-- Result update(string tableName, Object data, string idKey = "id")
-- Result del(string tableName, string|int id, string idKey)
-- Result del(string tableName, Array<string|int> idArray, string idKey) 批量删除
-- Pool getPool() 暴露原始 pool 给外部
+```plain
+execute(sql: string, params?: Array<string | number>): Promise<any>; // 执行原始 sql
+query(key: string, data: Object): Promise<any>;
+find(tableName: string, dataArray: Array<string>, id: string | number, paramKey: string = "id"): Promise<any>;
+insert(tableName: string, data: Object): Promise<any>;
+update(tableName: string, data: Object, idKey: string = "id"): Promise<any>;
+del(tableName: string, id: string | number | Array<string | number>, idKey: string = "id"): Promise<any>;
+getPool(): Pool; // 暴露原始 pool 给外部
+```
 
 # 示例代码
 
@@ -315,7 +316,7 @@ let transactionTest = async () => {
 **1.4.0-alpha**
 
 add：加入了事务的能力。
-change：执行过程中的异常会向外抛出。便于使用者处理（比如记录错误日志等）。
+change：执行过程中的异常会向外抛出。便于使用者处理（比如代码定位和记录错误日志等）。
 
 **1.3.0**
 

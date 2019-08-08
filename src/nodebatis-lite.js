@@ -89,7 +89,7 @@ class NodebatisLite {
       this.handleDebug(key, sqlObj.sql, sqlObj.params);
       return await this.pool.query(sqlObj.sql, sqlObj.params, transactionConnection);
     } else {
-      throw new Error("insert need tableName and data");
+      throw new Error("insert() need tableName and data");
     }
   }
 
@@ -113,7 +113,7 @@ class NodebatisLite {
       this.handleDebug(key, sqlObj.sql, sqlObj.params);
       return await this.pool.query(sqlObj.sql, sqlObj.params, transactionConnection);
     } else {
-      throw new Error("update need tableName and data");
+      throw new Error("update() need tableName and data");
     }
   }
 
@@ -133,7 +133,7 @@ class NodebatisLite {
       this.handleDebug(key, sqlObj.sql, sqlObj.params);
       return await this.pool.query(sqlObj.sql, sqlObj.params, transactionConnection);
     } else {
-      throw new Error("delete need tableName and id");
+      throw new Error("delete() need tableName and id");
     }
   }
 
@@ -154,7 +154,7 @@ class NodebatisLite {
       this.handleDebug(key, sqlObj.sql, sqlObj.params);
       return await this.pool.query(sqlObj.sql, sqlObj.params, transactionConnection);
     } else {
-      throw new Error("find need tableName and dataArray and id");
+      throw new Error("find() need tableName and dataArray and id");
     }
   }
 
