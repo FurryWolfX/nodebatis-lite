@@ -291,3 +291,49 @@ let batchInsertTest = async () => {
 ```javascript
 nodebatis.execute("ALTER TABLE test.test ADD column1 varchar(100) NULL;", []);
 ```
+
+## 事务
+
+```javascript
+let transactionTest = async () => {
+  let transaction = await nodebatis.getTransaction();
+  try {
+    let result3 = await transaction.update("test", { id: 2, name: "peter", age: 18 });
+    let result1 = await transaction.insert("test", { name: "peter", age: 28 });
+    let result2 = await transaction.query("test.query", { name: "peter" });
+    await transaction.commit();
+    return result1;
+  } catch (e) {
+    console.log(e);
+    await transaction.rollback();
+  }
+};
+```
+
+## 更新日记
+
+**1.4.0-alpha**
+
+add：加入了事务的能力。
+change：执行过程中的异常会向外抛出。便于使用者处理（比如记录错误日志等）。
+
+**1.3.0**
+
+add：支持用 `$` 符号定义变量，多了一种选择。
+fix：异常处理优化。
+
+**1.2.3**
+
+fix：修复变量值为 `0`，进入 `if` 比较时不正确的问题。
+
+**1.2.2**
+
+fix：修复 `execute()` 异常。
+
+**1.2.0**
+
+add：增加 batch delete
+
+**1.0.6**
+
+fix：修复 `getPool()` 获取的池不正确的问题
